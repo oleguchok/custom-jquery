@@ -6,11 +6,17 @@ module.exports = {
   output: {
     path: path.join(__dirname, 'dist'),
     publicPath: '/dist/',
-    filename: "bundle.js",
+    filename: 'bundle.js',
     chunkFilename: '[name].js'
   },
   module: {
     rules: [{
+      enforce: 'pre',
+      test: /\.js$/,
+      exclude: /node_modules/,
+      loader: 'eslint-loader'
+    },
+    {
       test: /.js$/,
       include: [
         path.resolve(__dirname, 'src')
@@ -21,9 +27,9 @@ module.exports = {
       loader: 'babel-loader',
       query: {
         presets: [
-          ["@babel/env", {
-            "targets": {
-              "browsers": "last 2 chrome versions"
+          ['@babel/env', {
+            targets: {
+              browsers: 'last 2 chrome versions'
             }
           }]
         ]
@@ -38,6 +44,6 @@ module.exports = {
     contentBase: path.join(__dirname, '/dist/'),
     inline: true,
     host: 'localhost',
-    port: 8080,
+    port: 8080
   }
-};
+}
