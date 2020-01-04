@@ -52,6 +52,18 @@ export default class JQueryObject {
       return `${acc} ${cur.textContent.trim()}`;
     }, '');
   }
+
+  attr(attributeName, value = null) {
+    if (value) {
+      this.elements.forEach(element => element.setAttribute(attributeName, value));
+      return this;
+    } else {
+      if (this.elements[0].hasAttribute(attributeName)) {
+        return this.elements[0].getAttribute(attributeName);
+      }
+      return null;
+    }
+  }
 }
 
 const isString = (value) => typeof value === 'string';

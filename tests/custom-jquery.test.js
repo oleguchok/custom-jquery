@@ -115,6 +115,41 @@ describe('custom-jquery tests', () => {
     expect(containerText).toBe('Demonstration Box list item 1 list item 2');
   })
 
+  test('should get attribute value', () => {
+    document.body.innerHTML = /* html */ `
+    <div class="container">
+     <input id="test" type="text"></input>
+    </div>`;
+
+    const value = $('#test').attr('type');
+
+    expect(value).toBe('text');
+  })
+
+  test('should get null if attribute value doesnot exist', () => {
+    document.body.innerHTML = /* html */ `
+    <div class="container">
+     <input id="test" type="text"></input>
+    </div>`;
+
+    const value = $('#test').attr('nonono');
+
+    expect(value).toBeNull();
+  })
+
+  test('should set attribute value', () => {
+    document.body.innerHTML = /* html */ `
+    <div class="container">
+     <input id="test" type="text"></input>
+    </div>`;
+
+    $('#test').attr('type', 'password');
+
+    const element = document.querySelector('#test').getAttribute('type');
+
+    expect(element).toBe('password');
+  })
+
   test('should chain methods', () => {
     document.body.innerHTML = /* html */ `
       <div>
