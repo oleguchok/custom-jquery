@@ -101,6 +101,20 @@ describe('custom-jquery tests', () => {
     expect(containerHelloElements).toHaveLength(0);
   })
 
+  test('should get the combined text contents of each element by selector, including their descedants', () => {
+    document.body.innerHTML = /* html */ `
+    <div class="demo-container"
+      ><div class="demo-box">Demonstration Box</div
+      ><ul
+        > <li>list item 1</li
+        > <li>list <strong>item</strong> 2</li
+      ></ul
+    ></div>`;
+
+    const containerText = $('div.demo-container').text();
+    expect(containerText).toBe('Demonstration Box list item 1 list item 2');
+  })
+
   test('should chain methods', () => {
     document.body.innerHTML = /* html */ `
       <div>

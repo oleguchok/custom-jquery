@@ -43,6 +43,15 @@ export default class JQueryObject {
 
     return this;
   }
+
+  text() {
+    return this.elements.reduce((acc, cur) => {
+      if (acc === '') {
+        return cur.textContent.trim();
+      }
+      return `${acc} ${cur.textContent.trim()}`;
+    }, '');
+  }
 }
 
 const isString = (value) => typeof value === 'string';
