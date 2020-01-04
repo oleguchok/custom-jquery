@@ -1,20 +1,5 @@
-export default function $(selector) {
-  const addClass = function(className) {
-    _getElement(selector)
-      .classList.add(className);
-    return this;
-  }
+import JQueryObject from './jQuery-object';
 
-  const removeClass = function(className) {
-    _getElement(selector)
-      .classList.remove(className);
-    return this;
-  }
+const $ = (selector) => new JQueryObject(selector);
 
-  const _getElement = (selector) => document.querySelector(selector);
-
-  return {
-    addClass,
-    removeClass
-  }
-}
+export default $;
