@@ -1,6 +1,6 @@
 export default class JQueryObject {
   constructor(selector) {
-    this.elements = document.querySelectorAll(selector);
+    this.elements = [...document.querySelectorAll(selector)];
   }
 
   addClass(className) {
@@ -16,21 +16,33 @@ export default class JQueryObject {
   }
 
   append(content) {
-    if (content instanceof JQueryObject) {
-      const elementsToInsert = content.elements;
-      this.elements
-        .forEach((target, index, targets) =>
-          elementsToInsert.forEach(toInsert => {
-            index + 1 === targets.length
-              ? target.append(toInsert)
-              : target.append(toInsert.cloneNode(true))
-          })
-        );
-    } else {
-      this.elements
-        .forEach(element => element.insertAdjacentHTML('beforeend', content));
-    }
+    this.elements
+      .forEach((target, index, targets) => {
+        if (content instanceof JQueryObject) {
+          const elementsToInsert = (index + 1 === targets.length)
+            ? content.elements
+            : content.elements.map(e => e.cloneNode(true));
+          elementsToInsert.forEach(toInsert => target.append(toInsert));
+        } else {
+          target.insertAdjacentHTML('beforeend', content);
+        }
+      });
+
+    return this;
+  }
+
+  remove(innerSelector) {
+    this.elements = this.elements.filter(element => {
+      if (isString(innerSelector) && !element.querySelector(innerSelector)) {
+        return true;
+      } else {
+        element.remove();
+        return false;
+      }
+    });
 
     return this;
   }
 }
+
+const isString = (value) => typeof value === 'string';

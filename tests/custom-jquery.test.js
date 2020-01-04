@@ -71,6 +71,36 @@ describe('custom-jquery tests', () => {
     expect(elem).toBeNull();
   })
 
+  test('should remove element', () => {
+    document.body.innerHTML = /* html */ `
+    <div class="container">
+      <div class="hello">Hello</div>
+      <div class="goodbye">Goodbye</div>
+    </div>`;
+
+    $('.hello').remove();
+
+    const elements = document.querySelectorAll('.hello');
+    expect(elements).toHaveLength(0);
+  })
+
+  test('should remove element by selector', () => {
+    document.body.innerHTML = /* html */ `
+    <div class="container">
+      <div class="hello">Hello</div>
+      <div class="goodbye">Goodbye</div>
+    </div>
+    <div class="hello">Hello</div>`;
+
+    $('.container').remove('.hello');
+
+    const helloElements = document.querySelectorAll('.hello');
+    expect(helloElements).toHaveLength(1);
+
+    const containerHelloElements = document.querySelectorAll('.container > .hello');
+    expect(containerHelloElements).toHaveLength(0);
+  })
+
   test('should chain methods', () => {
     document.body.innerHTML = /* html */ `
       <div>
