@@ -17,9 +17,20 @@ export default class JQueryObject {
 
   append(content) {
     if (content instanceof JQueryObject) {
-
+      const elementsToInsert = content.elements;
+      this.elements
+        .forEach((target, index, targets) =>
+          elementsToInsert.forEach(toInsert => {
+            index + 1 === targets.length
+              ? target.append(toInsert)
+              : target.append(toInsert.cloneNode(true))
+          })
+        );
     } else {
-
+      this.elements
+        .forEach(element => element.insertAdjacentHTML('beforeend', content));
     }
+
+    return this;
   }
 }
