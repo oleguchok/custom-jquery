@@ -150,6 +150,57 @@ describe('custom-jquery tests', () => {
     expect(element).toBe('password');
   })
 
+  test('should return jquery object with all first-level children', () => {
+    document.body.innerHTML = /* html */ `
+    <ul class="level-1">
+      <li class="item-i">I</li>
+      <li class="item-ii">II
+        <ul class="level-2">
+          <li class="item-1">1</li>
+          <li class="item-2">2
+            <ul class="level-3">
+              <li class="item-a">A</li>
+              <li class="item-b">B</li>
+            </ul>
+          </li>
+          <li class="item-3">3</li>
+        </ul>
+      </li>
+      <li class="item-iii">III</li>
+    </ul>`;
+
+    const children = $('ul.level-2').children();
+    children.elements.forEach(
+      (element, index) =>
+        expect(element.getAttribute('class')).toEqual(`item-${index + 1}`)
+    );
+  })
+
+  test('should return jquery object with first-level children filtered by selector', () => {
+    document.body.innerHTML = /* html */ `
+    <ul class="level-1">
+      <li class="item-i">I</li>
+      <li class="item-ii">II
+        <ul class="level-2">
+          <li class="item-1">1</li>
+          <li class="item-2">2
+            <ul class="level-3">
+              <li class="item-a">A</li>
+              <li class="item-b">B</li>
+            </ul>
+          </li>
+          <li class="item-3">3</li>
+        </ul>
+      </li>
+      <li class="item-iii">III</li>
+    </ul>`;
+
+    const children = $('ul.level-2').children('.item-2');
+
+    children.elements.forEach(
+      (element) => expect(element.getAttribute('class')).toEqual('item-2'));
+  })
+
   test('should chain methods', () => {
     document.body.innerHTML = /* html */ `
       <div>

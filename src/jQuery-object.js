@@ -1,6 +1,6 @@
 export default class JQueryObject {
-  constructor(selector) {
-    this.elements = [...document.querySelectorAll(selector)];
+  constructor(elements) {
+    this.elements = [...elements];
   }
 
   addClass(className) {
@@ -63,6 +63,21 @@ export default class JQueryObject {
       }
       return null;
     }
+  }
+
+  children(innerSelector = null) {
+    const childrenElements = this.elements.reduce((acc, cur) => {
+      return [...acc, ...Array.from(cur.children).filter(child => {
+        if (innerSelector !== null) {
+          return child.matches(innerSelector);
+        }
+
+        return true;
+      })]
+    },
+    []);
+
+    return new JQueryObject(childrenElements);
   }
 }
 
