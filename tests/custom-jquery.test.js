@@ -212,6 +212,32 @@ describe('custom-jquery tests', () => {
     expect(document.querySelector('.hello').children).toHaveLength(0);
   })
 
+  test('should get css prop', () => {
+    document.body.innerHTML = /* html */ `
+    <div class="container" style="color: red"
+      ><div class="hello">Hello<p>world</p></div
+      ><div class="goodbye">Goodbye</div
+    ></div>`;
+
+    const colors = $('.container').css('color');
+    expect(colors).toHaveLength(1);
+    expect(colors[0]).toEqual('red');
+  })
+
+  test('should set css prop', () => {
+    document.body.innerHTML = /* html */ `
+    <div class="container" style="color: red"
+      ><div class="hello">Hello<p>world</p></div
+      ><div class="goodbye">Goodbye</div
+    ></div>`;
+
+    $('.container').css('color', 'blue');
+
+    const colors = Array.from(document.querySelectorAll('.container')).map(e => e.style.color);
+    expect(colors).toHaveLength(1);
+    expect(colors[0]).toEqual('blue');
+  })
+
   test('should chain methods', () => {
     document.body.innerHTML = /* html */ `
       <div>

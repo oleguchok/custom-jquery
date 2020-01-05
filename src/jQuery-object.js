@@ -88,6 +88,18 @@ export default class JQueryObject {
     })
     return this;
   }
+
+  css(innerSelector, value = null) {
+    if (value) {
+      this.elements.forEach(element => { element.style[innerSelector] = value });
+    } else {
+      return this.elements.reduce(
+        (acc, cur) => [...acc, cur.style[innerSelector]],
+        []
+      );
+    }
+    return this;
+  }
 }
 
 const isString = (value) => typeof value === 'string';
