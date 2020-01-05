@@ -254,6 +254,24 @@ describe('custom-jquery tests', () => {
     expect(document.querySelector('.hello.clicked')).not.toBeNull();
   })
 
+  test('should change each odd elements', () => {
+    document.body.innerHTML = /* html */ `
+    <ul>
+      <li>1</li>
+      <li>2</li>
+      <li>3</li>
+      <li>4</li>
+    </ul>`;
+
+    $('li').each(function(index) {
+      if (index % 2) {
+        $(this).addClass('odd');
+      }
+    });
+
+    expect(document.querySelectorAll('li.odd')).toHaveLength(2);
+  })
+
   test('should chain methods', () => {
     document.body.innerHTML = /* html */ `
       <div>

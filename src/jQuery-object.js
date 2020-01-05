@@ -1,3 +1,5 @@
+import { isString } from './helpers';
+
 export default class JQueryObject {
   constructor(elements) {
     this.elements = [...elements];
@@ -108,6 +110,12 @@ export default class JQueryObject {
       this.elements.forEach(element => element.click());
     }
   }
-}
 
-const isString = (value) => typeof value === 'string';
+  each(callback) {
+    this.elements.forEach((element, index) => {
+      callback.call(element, index);
+    })
+
+    return this;
+  }
+}
