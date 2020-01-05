@@ -118,4 +118,16 @@ export default class JQueryObject {
 
     return this;
   }
+
+  toggle() {
+    this.elements.forEach(element => {
+      if (element.style.display === 'none') {
+        element.style.display = 'block';
+      } else {
+        element.style.display = 'none';
+      }
+    });
+
+    return this;
+  }
 }
