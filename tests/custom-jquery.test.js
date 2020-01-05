@@ -201,6 +201,17 @@ describe('custom-jquery tests', () => {
       (element) => expect(element.getAttribute('class')).toEqual('item-2'));
   })
 
+  test('should remove all child nodes', () => {
+    document.body.innerHTML = /* html */ `
+    <div class="container"
+      ><div class="hello">Hello<p>world</p></div
+      ><div class="goodbye">Goodbye</div
+    ></div>`;
+
+    $('.hello').empty();
+    expect(document.querySelector('.hello').children).toHaveLength(0);
+  })
+
   test('should chain methods', () => {
     document.body.innerHTML = /* html */ `
       <div>

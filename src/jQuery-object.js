@@ -79,6 +79,15 @@ export default class JQueryObject {
 
     return new JQueryObject(childrenElements);
   }
+
+  empty() {
+    this.elements.forEach(element => {
+      while (element.firstChild) {
+        element.removeChild(element.firstChild);
+      }
+    })
+    return this;
+  }
 }
 
 const isString = (value) => typeof value === 'string';
