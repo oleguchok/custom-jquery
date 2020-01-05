@@ -100,6 +100,14 @@ export default class JQueryObject {
     }
     return this;
   }
+
+  click(handler = null) {
+    if (handler) {
+      this.elements.forEach(element => element.addEventListener('click', handler));
+    } else {
+      this.elements.forEach(element => element.click());
+    }
+  }
 }
 
 const isString = (value) => typeof value === 'string';

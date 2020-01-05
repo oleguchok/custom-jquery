@@ -238,6 +238,22 @@ describe('custom-jquery tests', () => {
     expect(colors[0]).toEqual('blue');
   })
 
+  test('should set handler on click', () => {
+    document.body.innerHTML = /* html */ `
+    <div class="container" style="color: red"
+      ><div class="hello">Hello<p>world</p></div
+      ><div class="goodbye">Goodbye</div
+    ></div>`;
+
+    $('.container').click(function() {
+      document.querySelector('.hello').classList.add('clicked');
+    });
+
+    $('.container').click();
+
+    expect(document.querySelector('.hello.clicked')).not.toBeNull();
+  })
+
   test('should chain methods', () => {
     document.body.innerHTML = /* html */ `
       <div>
